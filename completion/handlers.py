@@ -7,7 +7,7 @@ import logging
 from django.contrib import auth
 
 from . import waffle
-from .tasks import submit_block_completion_async
+from .tasks import submit_block_completion_task
 
 log = logging.getLogger(__name__)
 User = auth.get_user_model()
@@ -39,6 +39,6 @@ def scorable_block_completion(sender, **kwargs):  # pylint: disable=unused-argum
     }
 
     if waffle.ENABLE_ASYNC_COMPLETION_SWITCH.is_enabled():
-        submit_block_completion_async.apply_async(kwargs=task_kwargs)
+        submit_block_completion_task.apply_async(kwargs=task_kwargs)
     else:
-        submit_block_completion_async.apply(kwargs=task_kwargs)
+        submit_block_completion_task.apply(kwargs=task_kwargs)

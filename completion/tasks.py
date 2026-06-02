@@ -18,7 +18,7 @@ User = auth.get_user_model()
 
 
 @shared_task(bind=True, max_retries=3)
-def submit_block_completion_async(self, user_id, usage_id, course_id, score_deleted=False, grader_response=False):
+def submit_block_completion_task(self, user_id, usage_id, course_id, score_deleted=False, grader_response=False):
     """
     Async task to handle block completion submissions, reducing database lock contention.
     """
