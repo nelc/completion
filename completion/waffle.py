@@ -20,3 +20,15 @@ ENABLE_COMPLETION_TRACKING_SWITCH = WaffleSwitch(
     f"{WAFFLE_NAMESPACE}.{ENABLE_COMPLETION_TRACKING}",
     module_name=__name__,
 )
+# .. toggle_name: completion.enable_async_completion
+# .. toggle_implementation: WaffleSwitch
+# .. toggle_default: False
+# .. toggle_description: Determines whether block completion updates are processed asynchronously via Celery.
+#   When enabled, it mitigates database lock contention by offloading the insertion of BlockCompletion records
+#   to a background worker, avoiding synchronous database waits during high-concurrency events. If disabled,
+#   completions are processed synchronously within the main thread.
+# .. toggle_use_cases: open_edx
+ENABLE_ASYNC_COMPLETION_SWITCH = WaffleSwitch(
+    f"{WAFFLE_NAMESPACE}.enable_async_completion",
+    module_name=__name__,
+)
